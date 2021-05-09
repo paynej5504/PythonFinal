@@ -5,7 +5,8 @@ To download these files click on the green "Code" button and click "download ZIP
 
 # To Use
 Before using code you will need to create a virtual environment to place your code in. Details on how to do that can be found here: https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/. Once your virtual enviornment is created, open Pycharm, click "New Project" and choose your virtual environment. If you do not currently have Pycharm downloaded, you can download it here: https://www.jetbrains.com/pycharm/. Then place the downloaded github code in the venv folder. To run the app open the terminal and enter 
-``` set FLASK_APP=project
+``` 
+set FLASK_APP=project
 set FLASK_DEBUG=1
 *NOTE: if using a Mac, use EXPORT instead of set 
 ```
