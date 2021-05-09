@@ -1,4 +1,5 @@
 # PythonFinal
+This is an app designed for the Audubon Society of Miami Valley. This app can be used help capture and analyze data for their Eastern Bluebird Nesting project. Features of this app include the ability to enter data, a tables to view the data, the ability to edit or delete a data record, a graph to show the data from past years, a map of the Hueston Woods, and a help page.
 
 # To Download
 To download these files click on the green "Code" button and click "download ZIP". Once the files are done downloading, unzip them and open in text editor of your choice. You can also download them by clicking the green "Code" button and copying the link. Then open GitBash in a selected folder and type git clone *link* and paste the link after "git clone" and push enter. This will clone all the files to the folder you chose. 
