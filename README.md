@@ -12,3 +12,53 @@ set FLASK_DEBUG=1
 *NOTE: if using a Mac, use EXPORT instead of set 
 ```
 Hit enter then type ```flask run``` the app should then be running in localhost:5000.
+
+# App File Structure
+```
+flask_auth_app/
+├─ project/
+│  ├─ static/
+│  │  ├─ styles/
+│  │  │  ├─ custom.css
+│  │  │  ├─ custom.css.map
+│  │  ├─ graphs.js
+│  │  ├─ logo.png
+│  ├─ templates/
+│  │  ├─ _formhelpers.html
+│  │  ├─ base.html
+│  │  ├─ edit-entry.html
+│  │  ├─ entry.html
+│  │  ├─ graph.html
+│  │  ├─ help.html
+│  │  ├─ index.html
+│  │  ├─ login.html
+│  │  ├─ map.html
+│  │  ├─ profile.html
+│  │  ├─ signup.html
+│  │  ├─ table.html
+│  ├─ __init__.py
+│  ├─ auth.py
+│  ├─ form.py
+│  ├─ main.py
+│  ├─ models.py
+```
+# Database Structure
+```
+user/
+├─ id
+├─ email
+├─ password
+├─ name
+entry/
+├─ houseId
+├─ date
+├─ id
+├─ eggs
+├─ alive
+├─ dead
+├─ species
+├─ cowbird
+├─ damaged
+├─ comment
+├─ entryId
+```
