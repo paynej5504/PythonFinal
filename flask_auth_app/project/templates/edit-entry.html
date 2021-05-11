@@ -2,6 +2,7 @@
 
 <!-- shows the content on the page -->
 {% block content %}
+{% from "_formhelpers.html" import render_field %}
 <!-- edit entry form -->
 <form method="POST" action="{{url_for('main.editEntry',entryId=entry['entryId'])}}" xmlns="http://www.w3.org/1999/html" novalidate>
     <label>houseId</label>
