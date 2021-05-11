@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html style="background-color: #00d1b2;">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bluebird Nesting</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"/>
+
+    <style>
+        a.navbar-item:hover {
+
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        a.navbar-item {
+            opacity: 100%;
+        }
+
+        #navbarBasicExample.navbar-menu.is-active {
+            background-color: #00d1b2;
+        }
+        .hero.is-primary a:not(.button):not(.dropdown-item):not(.tag), .hero.is-primary strong {
+    color: inherit;
+}
+    </style>
+</head>
+
+
+<body>
+
+<section class="has-background-primary-light" style="background-color: #00d1b2;">
+        <div class="hero-head"  style="background-color: #00d1b2;">
+            <!-- navigation -->
+            <nav class="navbar" style="background-color: #00d1b2;">
+                <div class="navbar-brand" style="background-color: #00d1b2;">
+                    <a href="{{ url_for('main.index') }}">
+                        <!-- logo -->
+                        <img href="{{ url_for('main.index') }}" style="width: 100px;" src="{{url_for('static', filename='logo.png')}}">
+                    </a>
+                    <!-- hamburger menu -->
+                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" style="background-color: #00d1b2;" data-target="navbarBasicExample"
+                    onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
+
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+
+                <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <!-- index page -->
+                  <a href="{{ url_for('main.index') }}" class="navbar-item" style="color: white;">
+                    Home
+                  </a>
+                    <!-- show if logged in -->
+                    {% if current_user.is_authenticated %}
+                    <!-- profile page -->
+                  <a href="{{ url_for('main.profile') }}" class="navbar-item" style="color: white;">
+                    Profile
+                  </a>
+                    <!-- history page -->
+                    <a href="{{ url_for('main.tables') }}" class="navbar-item" style="color: white;">
+                      History
+                    </a>
+
+                    <!-- map page -->
+                    <a href="{{ url_for('main.map') }}" class="navbar-item" style="color: white;">
+                        Map
+                    </a>
+                    <!-- graph page -->
+                    <a href="{{ url_for('main.graph') }}" class="navbar-item" style="color: white;">
+                        Graph
+                    </a>
+                    <!-- help page -->
+                    <a href="{{ url_for('main.help') }}" class="navbar-item" style="color: white;">
+                        Help
+                    </a>
+                        {% endif %}
+                    <!-- show if not logged in -->
+                    {% if not current_user.is_authenticated %}
+                    <!-- login page -->
+                    <a href="{{ url_for('auth.login') }}" class="navbar-item" style="color: white;">
+                        Login
+                    </a>
+                    <!-- signup page -->
+                    <a href="{{ url_for('auth.signup') }}" class="navbar-item" style="color: white;">
+                        Sign Up
+                    </a>
+                    {% endif %}
+                    <!-- show if logged in -->
+                    {% if current_user.is_authenticated %}
+                    <!-- logout -->
+                    <a href="{{ url_for('auth.logout') }}" class="navbar-item" style="color: white;">
+                        Logout
+                    </a>
+                    {% endif %}
+
+                </div>
+
+                <div class="navbar-end">
+                </div>
+              </div>
+            </nav>
+        </div>
+
+
+<!-- shows the content on the page -->
+{% block content %}
+    <div class="container" style="padding-top: 50px; background-color: #00d1b2;">
+        <!-- header -->
+        <h1 class="title" style="color: white; text-align: center;">
+            Hueston Woods Map
+        </h1>
+    </div>
+
+    <!-- map -->
+    <div style="margin: auto; display: flex;">
+        <iframe width="600" height="500" frameborder="0"
+                scrolling="no" marginheight="0" marginwidth="0"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=-84.77025032043458%2C39.56712467699364%2C-84.75016593933107%2C39.57815682349351&amp;layer=mapnik&amp;marker=39.572640969692515%2C-84.76020812988281"
+                style="margin: auto; padding-top: 50px;">
+        </iframe><br/>
+    </div>
+
+    {% endblock %}
+
+</section>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+<!-- shows the content on the page -->
+{% block content %}
+
+<!-- danger message -->
+<div class="notification is-danger is-light">
+  <button class="delete"></button>
+  Please exercise caution when monitoring nests to ensure the safety of birds, nests and eggs.
+</div>
+
+<h1 class="title">
+    <!-- display name value -->
+    Welcome, {{ name }}!
+</h1>
+{% endblock %}

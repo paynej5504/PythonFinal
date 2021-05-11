@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html style="background-color: #00d1b2;">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Graph</title>
+	<link rel="stylesheet" href="static/styles/custom.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"/>
+    <!-- styles for navbar-->
+    <style>
+        a.navbar-item:hover {
+
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        a.navbar-item {
+            opacity: 100%;
+        }
+
+        #navbarBasicExample.navbar-menu.is-active {
+            background-color: #00d1b2;
+        }
+        .hero.is-primary a:not(.button):not(.dropdown-item):not(.tag), .hero.is-primary strong {
+    color: inherit;
+}
+    </style>
+</head>
+<body>
+
+<section class="section">
+
+    <div class="hero-head"  style="background-color: #00d1b2;">
+        <!-- navigation -->
+        <nav class="navbar" style="background-color: #00d1b2;">
+                <div class="navbar-brand">
+                    <a href="{{ url_for('main.index') }}">
+                        <img href="{{ url_for('main.index') }}" style="width: 100px;" src="{{url_for('static', filename='logo.png')}}">
+                    </a>
+                    <!-- hamburger menu -->
+                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample"
+                    onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
+
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+
+                <div id="navbarBasicExample" class="navbar-menu">
+                    <!-- index page -->
+                <div class="navbar-start">
+                  <a href="{{ url_for('main.index') }}" class="navbar-item" style="color: white;">
+                    Home
+                  </a>
+                    <!-- only show if user is logged in -->
+                    {% if current_user.is_authenticated %}
+                    <!-- profile page -->
+                  <a href="{{ url_for('main.profile') }}" class="navbar-item" style="color: white;">
+                    Profile
+                  </a>
+                    <!-- history page -->
+                    <a href="{{ url_for('main.tables') }}" class="navbar-item" style="color: white;">
+                      History
+                    </a>
+
+                    <!-- map page -->
+                    <a href="{{ url_for('main.map') }}" class="navbar-item" style="color: white;">
+                        Map
+                    </a>
+                    <!-- graph page -->
+                    <a href="{{ url_for('main.graph') }}" class="navbar-item" style="color: white;">
+                        Graph
+                    </a>
+                    <!-- help page -->
+                    <a href="{{ url_for('main.help') }}" class="navbar-item" style="color: white;">
+                        Help
+                    </a>
+                        {% endif %}
+                    <!-- only show if user is not logged in -->
+                    {% if not current_user.is_authenticated %}
+                    <!-- login page -->
+                    <a href="{{ url_for('auth.login') }}" class="navbar-item" style="color: white;">
+                        Login
+                    </a>
+                    <!-- signup page -->
+                    <a href="{{ url_for('auth.signup') }}" class="navbar-item" style="color: white;">
+                        Sign Up
+                    </a>
+                    {% endif %}
+                    <!-- only show if user is logged in -->
+                    {% if current_user.is_authenticated %}
+                    <!-- logout -->
+                    <a href="{{ url_for('auth.logout') }}" class="navbar-item" style="color: white;">
+                        Logout
+                    </a>
+                    {% endif %}
+
+                </div>
+
+                <div class="navbar-end">
+                </div>
+              </div>
+            </nav>
+        </div>
+
+
+
+{% block content %}
+	<div class="container" style="">
+        <!-- header -->
+		<h1 class="title" style="color: white;">
+			Graph
+		</h1>
+		<hr>
+        <!-- graph columns -->
+		<div  style="color: white;" class="graphs-container" data-title="Results from past years">
+			<div class="data-container column is-full columns is-mobile is-size-7 has-text-white is-marginless">
+				<div data-title="2017 Bluebirds 91" data-value="91"></div>
+				<div data-title="2017 Tree Swallows 41" data-value="41"></div>
+				<div data-title="2017 House Wrens 125" data-value="125"></div>
+				<div data-title="2018 Bluebirds 49" data-value="49"></div>
+				<div data-title="2018 Tree Swallows 121" data-value="121"></div>
+				<div data-title="2018 House Wrens 76" data-value="76"></div>
+				<div data-title="2019 Bluebirds 88" data-value="88"></div>
+				<div data-title="2019 Tree Swallows 94" data-value="94"></div>
+				<div data-title="2019 House Wrens 51" data-value="51"></div>
+				<div data-title="2020 Bluebirds 58" data-value="58"></div>
+				<div data-title="2020 Tree Swallows 99" data-value="99"></div>
+				<div data-title="2020 House Wrens 60" data-value="60"></div>
+			</div>
+		</div>
+		<hr>
+	</div>
+    <!--species total-->
+
+    <div class="container" style="padding-top: 20px;">
+        <h1 class="title" style="color: white;">Species Totals</h1>
+        <table class="table is-bordered">
+            <thead>
+            <!-- table headers -->
+                <tr>
+                    <th>Eastern Bluebirds</th>
+                    <th>Tree Swallows</th>
+                    <th>House Wrens</th>
+                </tr>
+            </thead>
+            <tbody>
+            <!-- table values -->
+                <tr>
+                    <td>286</td>
+                    <td>355</td>
+                    <td>312</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {% endblock %}
+</section>
+
+<footer>
+	<script src="static/graphs.js"></script>
+</footer>
+</body>
+</html>

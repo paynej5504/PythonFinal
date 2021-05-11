@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bluebird Nesting</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"/>
+</head>
+
+<body>
+    <section class="hero is-primary is-fullheight">
+
+        <div class="hero-head">
+            <!-- navigation -->
+            <nav class="navbar">
+                <div class="navbar-brand">
+                    <!-- logo -->
+                    <a href="{{ url_for('main.index') }}">
+                        <img href="{{ url_for('main.index') }}" style="width: 100px;" src="{{url_for('static', filename='logo.png')}}">
+                    </a>
+                    <!-- hamburger menu -->
+                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample"
+                    onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
+
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+
+                <div id="navbarBasicExample" class="navbar-menu">
+                    <!-- index page link -->
+                <div class="navbar-start">
+                  <a href="{{ url_for('main.index') }}" class="navbar-item">
+                    Home
+                  </a>
+                    <!-- only show if user is logged in -->
+                    {% if current_user.is_authenticated %}
+                    <!-- profile page link -->
+                  <a href="{{ url_for('main.profile') }}" class="navbar-item">
+                    Profile
+                  </a>
+                    <!-- history page link -->
+                    <a href="{{ url_for('main.tables') }}" class="navbar-item">
+                      History
+                    </a>
+
+                    <!-- map page link -->
+                    <a href="{{ url_for('main.map') }}" class="navbar-item">
+                        Map
+                    </a>
+                    <!-- graph page link -->
+                    <a href="{{ url_for('main.graph') }}" class="navbar-item">
+                        Graph
+                    </a>
+                    <!-- help page link -->
+                    <a href="{{ url_for('main.help') }}" class="navbar-item">
+                        Help
+                    </a>
+                        {% endif %}
+                    <!-- only show if user is not logged in -->
+                    {% if not current_user.is_authenticated %}
+                    <!-- login page link -->
+                    <a href="{{ url_for('auth.login') }}" class="navbar-item">
+                        Login
+                    </a>
+                    <!-- signup page link -->
+                    <a href="{{ url_for('auth.signup') }}" class="navbar-item">
+                        Sign Up
+                    </a>
+                    {% endif %}
+                    <!-- only show if user is logged in -->
+                    {% if current_user.is_authenticated %}
+                    <!-- logout link -->
+                    <a href="{{ url_for('auth.logout') }}" class="navbar-item">
+                        Logout
+                    </a>
+                    {% endif %}
+
+                </div>
+
+                <div class="navbar-end">
+                </div>
+              </div>
+            </nav>
+        </div>
+
+        <div class="hero-body">
+
+            <div class="container has-text-centered">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

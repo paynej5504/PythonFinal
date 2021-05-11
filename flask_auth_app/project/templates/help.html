@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html style="background-color: #00d1b2;">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bluebird Nesting</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"/>
+    <!-- navbar styles -->
+    <style>
+        a.navbar-item:hover {
+
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        a.navbar-item {
+            opacity: 100%;
+        }
+
+        #navbarBasicExample.navbar-menu.is-active {
+            background-color: #00d1b2;
+        }
+        .hero.is-primary a:not(.button):not(.dropdown-item):not(.tag), .hero.is-primary strong {
+    color: inherit;
+}
+    </style>
+</head>
+
+<body>
+
+<section class="has-background-primary-light" style="background-color: #00d1b2;">
+        <div class="hero-head"  style="background-color: #00d1b2;">
+            <!-- navigation -->
+            <nav class="navbar" style="background-color: #00d1b2;">
+                <div class="navbar-brand">
+                    <!-- index page -->
+                    <a href="{{ url_for('main.index') }}">
+                        <!-- logo -->
+                        <img href="{{ url_for('main.index') }}" style="width: 100px;" src="{{url_for('static', filename='logo.png')}}">
+                    </a>
+                    <!-- hamburger menu -->
+                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample"
+                    onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
+
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+
+                <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <!-- index page -->
+                  <a href="{{ url_for('main.index') }}" class="navbar-item" style="color: white;">
+                    Home
+                  </a>
+                    <!-- only show if logged in -->
+                    {% if current_user.is_authenticated %}
+                    <!-- profile page -->
+                  <a href="{{ url_for('main.profile') }}" class="navbar-item" style="color: white;">
+                    Profile
+                  </a>
+                    <!-- history page -->
+                    <a href="{{ url_for('main.tables') }}" class="navbar-item" style="color: white;">
+                      History
+                    </a>
+
+                    <!-- map page -->
+                    <a href="{{ url_for('main.map') }}" class="navbar-item" style="color: white;">
+                        Map
+                    </a>
+                    <!-- graph page -->
+                    <a href="{{ url_for('main.graph') }}" class="navbar-item" style="color: white;">
+                        Graph
+                    </a>
+                    <!-- help page -->
+                    <a href="{{ url_for('main.help') }}" class="navbar-item" style="color: white;">
+                        Help
+                    </a>
+                        {% endif %}
+                    <!-- only show if not logged in -->
+                    {% if not current_user.is_authenticated %}
+                    <!-- login page -->
+                    <a href="{{ url_for('auth.login') }}" class="navbar-item" style="color: white;">
+                        Login
+                    </a>
+                    <!-- signup page -->
+                    <a href="{{ url_for('auth.signup') }}" class="navbar-item" style="color: white;">
+                        Sign Up
+                    </a>
+                    {% endif %}
+                    <!-- only show if logged in -->
+                    {% if current_user.is_authenticated %}
+                    <!-- logout -->
+                    <a href="{{ url_for('auth.logout') }}" class="navbar-item" style="color: white;">
+                        Logout
+                    </a>
+                    {% endif %}
+
+                </div>
+
+                <div class="navbar-end">
+                </div>
+              </div>
+            </nav>
+        </div>
+
+
+<!-- shows the content on the page -->
+{% block content %}
+<div class="container" style="padding-top: 50px; background-color: #00d1b2;">
+    <!-- header -->
+    <h1 class="title" style="color: white;">
+        Help
+    </h1>
+    <!-- how to use app -->
+    <p class="body" style="background-color: #00d1b2; color: white; padding:7px;">
+        To use app go to the history page and click the "Add" button. This will
+        then bring up an entry form asking for the birdhouse number, date, your user id,
+        the number of eggs found in the house, number of alive birds, number of dead birds,
+        the type of bird, and if there are any cowbirds or if the box is damaged.
+        You can also enter any comments you may have or a different species if other is selected.
+        When done filling out the form, click the add button. Your entry should now display on the table.
+    </p>
+    <p style="color: white; padding:7px;">
+        To edit an entry, simply click the "edit" button next to the entry of your choice.
+        Update the information as needed and click "submit". When deleting an entry, simply
+        click the "delete" button. If an entry was successfully edited or deleted a success message will appear.
+    </p>
+    <p style="color: white; padding:7px;">
+        You can click on the map page to view a map of Hueston Woods. The graph page
+        shows a graph of totals from previous years. Under the graph is a table that
+        displays the total number of fledglings per species.
+    </p>
+</div>
+    {% endblock %}
+
+</section>
+</body>
+</html>

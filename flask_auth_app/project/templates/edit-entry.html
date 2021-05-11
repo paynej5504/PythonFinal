@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+<!-- shows the content on the page -->
+{% block content %}
+<!-- edit entry form -->
+<form method="POST" action="{{url_for('main.editEntry',entryId=entry['entryId'])}}" xmlns="http://www.w3.org/1999/html" novalidate>
+    <label>houseId</label>
+    <div>
+        <!-- house Id selector -->
+        <select class="select" name="houseId" id="houseId" value="{{ entry['houseId'] }}">
+            <option>{{ entry['houseId'] }}</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+            <option>11</option>
+            <option>12</option>
+            <option>13</option>
+        </select>
+    </div>
+    <label>date</label>
+    <div>
+        <!-- date input -->
+        <input type="text" name="date" value="{{ entry['date'] }}">
+    </div>
+    <!-- user Id input -->
+    <label>userId</label>
+    <div>
+        <input type="number" name="id" value="{{ entry['id'] }}">
+
+        </input>
+    </div>
+    <!-- number of eggs input -->
+    <label>eggs</label>
+    <div>
+        <input type="number" name="eggs" value="{{ entry['eggs'] }}">
+
+        </input>
+    </div>
+    <!-- number of alive birds input -->
+    <label>alive</label>
+    <div>
+        <input type="number" name="alive" value="{{ entry['alive'] }}">
+
+        </input>
+    </div>
+    <!-- number dead input -->
+    <label>dead</label>
+    <div>
+        <input type="number" name="dead" value="{{ entry['dead'] }}">
+
+        </input>
+    </div>
+    <!-- species type selector -->
+    <label>species</label>
+    <div>
+        <select class="select" name="species" id="species" value="{{ entry['species'] }}">
+            <option>{{ entry['species'] }}</option>
+            <option>Eastern Blue Bird</option>
+            <option>Tree Swallow</option>
+            <option>House Wren</option>
+            <option>Brown-Headed Cowbird</option>
+            <option>Unknown</option>
+            <option>Other</option>
+        </select>
+    </div>
+    <!-- selector for if there is a cowbird present -->
+    <label>cowbird</label>
+    <div>
+        <select class="select" name="cowbird" id="cowbird" value="{{ entry['cowbird'] }}">
+            <option>{{ entry['cowbird'] }}</option>
+            <option>Yes</option>
+            <option>No</option>
+        </select>
+    </div>
+    <!-- selector for if the birdhouse is in need of repairs -->
+    <label>damaged</label>
+    <div>
+        <select class="select" name="damaged" id="damaged" data-value="{{ entry['damaged'] }}">
+            <option>{{ entry['damaged'] }}</option>
+            <option>Yes</option>
+            <option>No</option>
+        </select>
+    </div>
+    <!-- textarea for comments -->
+    <label>comment</label>
+    <div>
+        <textarea name="comment" data-value="{{ entry['comment'] }}">{{ entry['comment']}}</textarea>
+    </div>
+    <!-- entryId -->
+    <form action="{{ url_for('main.tables', entryId=entry['entryId']) }}" method="POST" novalidate>
+        <!-- submit button -->
+        {{render_field(form.submit)}}
+    </form>
+</form>
+
+{% endblock %}

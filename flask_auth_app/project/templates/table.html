@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html style="background-color: #00d1b2;">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bluebird Nesting</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"/>
+    <!-- navbar style -->
+    <style>
+        a.navbar-item:hover {
+
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        a.navbar-item {
+            opacity: 100%;
+        }
+
+        #navbarBasicExample.navbar-menu.is-active {
+            background-color: #00d1b2;
+        }
+        .hero.is-primary a:not(.button):not(.dropdown-item):not(.tag), .hero.is-primary strong {
+            color: inherit;
+        }
+    </style>
+</head>
+
+<body>
+
+<section class="has-background-primary-light" style="background-color: #00d1b2;">
+        <div class="hero-head"  style="background-color: #00d1b2;">
+            <!-- navigation -->
+            <nav class="navbar" style="background-color: #00d1b2;">
+                <div class="navbar-brand">
+                    <a href="{{ url_for('main.index') }}">
+                        <!-- logo -->
+                        <img href="{{ url_for('main.index') }}" style="width: 100px;" src="{{url_for('static', filename='logo.png')}}">
+                    </a>
+                    <!-- hamburger menu -->
+                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample"
+                    onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
+
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+
+                <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <!-- index page -->
+                  <a href="{{ url_for('main.index') }}" class="navbar-item" style="color: white;">
+                    Home
+                  </a>
+                    <!-- only show if logged in -->
+                    {% if current_user.is_authenticated %}
+                    <!-- profile page -->
+                  <a href="{{ url_for('main.profile') }}" class="navbar-item" style="color: white;">
+                    Profile
+                  </a>
+                    <!-- history page -->
+                    <a href="{{ url_for('main.tables') }}" class="navbar-item" style="color: white;">
+                      History
+                    </a>
+                    <!-- map page -->
+                    <a href="{{ url_for('main.map') }}" class="navbar-item" style="color: white;">
+                        Map
+                    </a>
+                    <!-- graph page -->
+                    <a href="{{ url_for('main.graph') }}" class="navbar-item" style="color: white;">
+                        Graph
+                    </a>
+                    <!-- help page -->
+                    <a href="{{ url_for('main.help') }}" class="navbar-item" style="color: white;">
+                        Help
+                    </a>
+                        {% endif %}
+                    <!-- show if not logged in -->
+                    {% if not current_user.is_authenticated %}
+                    <!-- login page -->
+                    <a href="{{ url_for('auth.login') }}" class="navbar-item" style="color: white;">
+                        Login
+                    </a>
+                    <!-- signup page -->
+                    <a href="{{ url_for('auth.signup') }}" class="navbar-item" style="color: white;">
+                        Sign Up
+                    </a>
+                    {% endif %}
+                    <!-- show if logged in  -->
+                    {% if current_user.is_authenticated %}
+                    <!-- logout -->
+                    <a href="{{ url_for('auth.logout') }}" class="navbar-item" style="color: white;">
+                        Logout
+                    </a>
+                    {% endif %}
+
+                </div>
+
+                <div class="navbar-end">
+                </div>
+              </div>
+            </nav>
+        </div>
+
+
+<!-- shows the content on the page -->
+{% block content %}
+    <!-- gets error messages -->
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <!--error message shows if there is one-->
+                <div class="notification is-success">
+                    {{ messages[0] }}
+                </div>
+            {% endif %} <!-- end of if statement -->
+            {% endwith %}
+<div class="container" style="padding-top: 50px; background-color: #00d1b2;">
+    <!-- header -->
+    <h1 class="title" style="color: white; text-align: center;">
+        Entry History
+    </h1>
+</div>
+    <!-- add entry button -->
+    <form action="/entry" style="margin: auto; padding-top: 50px; text-align: center;">
+        <button class="button is-info" href="/entry" value="submit">Add Entry</button>
+    </form>
+<div class="table-container" style="width: min-content; margin: auto; padding-top: 15px;" >
+    <!-- show data from database in table -->
+    {% for entry in table %}
+    <table class="table is-striped " style="margin: auto; padding-top: 50px;">
+        <thead>
+        <!-- table header -->
+            <tr>
+                <th>House</th>
+                <th>Date</th>
+                <th>User</th>
+                <th>Eggs</th>
+                <th>Alive</th>
+                <th>Dead</th>
+                <th>Species</th>
+                <th>Cowbird</th>
+                <th>Damaged</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+        <!--turn row red if there is a cowbird or if the house is in need of repairs-->
+        <tr {% if entry.cowbird == 'Yes' or entry.damaged == 'Yes' %} style="color:red;" {% else %} style="color:black;"{% endif %}>
+            <!-- table rows -->
+            <td>{{ entry.houseId }}</td>
+            <td>{{ entry.date }}</td>
+            <td>{{ entry.id }}</td>
+            <td>{{ entry.eggs }}</td>
+            <td>{{ entry.alive }}</td>
+            <td>{{ entry.dead }}</td>
+            <td>{{ entry.species }}</td>
+            <td>{{ entry.cowbird }}</td>
+            <td>{{ entry.damaged }}</td>
+            <td>{{ entry.comment }}</td>
+            <td>
+                <!-- edit entry button -->
+                <form action="{{ url_for('main.editEntry', entryId=entry['entryId']) }}">
+                    <button class="button link is-info">Edit</button>
+                </form>
+            </td>
+            <!-- gives option to delete entry -->
+              <td>
+                  <form action="{{ url_for('main.delete_entry', entryId=entry['entryId']) }}">
+                    <button class="button is-danger" href="" value="delete">Delete</button>
+                  </form>
+              </td>
+        </tr>
+        </tbody>
+    </table>
+    {% endfor %}
+</div>
+    {% endblock %}
+</section>
+</body>
+</html>
